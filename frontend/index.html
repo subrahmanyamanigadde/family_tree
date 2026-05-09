@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>👨‍👩‍👧‍👦 Family Tree</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>👨‍👩‍👧‍👦 Family Tree</h1>
+        <button id="addMemberBtn" class="btn-add">+</button>
+      </div>
+      
+      <input 
+        type="text" 
+        id="searchInput" 
+        class="search-input" 
+        placeholder="Search members..."
+      >
+      
+      <div class="members-list" id="membersList">
+        <p class="empty-state">No family members yet. Click + to add one!</p>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="canvas-header">
+        <h2>Family Tree Visualization</h2>
+        <div class="header-actions">
+          <button id="exportBtn" class="btn-secondary">📥 Export</button>
+          <button id="clearBtn" class="btn-secondary">🗑️ Clear All</button>
+        </div>
+      </div>
+      
+      <canvas id="treeCanvas" class="tree-canvas"></canvas>
+      
+      <div class="legend">
+        <h3>Legend</h3>
+        <div class="legend-items">
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: #667eea;"></div>
+            <span>Self</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: #a78bfa;"></div>
+            <span>Parent</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: #06b6d4;"></div>
+            <span>Child</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: #f472b6;"></div>
+            <span>Spouse</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color" style="background-color: #fb923c;"></div>
+            <span>Other</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add/Edit Member Modal -->
+  <div id="memberModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modalTitle">Add New Member</h2>
+        <button class="modal-close" id="closeModalBtn">&times;</button>
+      </div>
+      
+      <form id="memberForm">
+        <div class="form-group">
+          <label for="memberName">Full Name *</label>
+          <input 
+            type="text" 
+            id="memberName" 
+            name="name" 
+            required
+            placeholder="Enter full name"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="memberPhone">Phone Number</label>
+          <input 
+            type="tel" 
+            id="memberPhone" 
+            name="phone" 
+            placeholder="Enter phone number"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="relationshipType">Relationship Type</label>
+          <select id="relationshipType" name="relationship_type">
+            <option value="">-- No Relationship --</option>
+            <option value="parent">Parent</option>
+            <option value="child">Child</option>
+            <option value="spouse">Spouse</option>
+            <option value="sibling">Sibling</option>
+            <option value="grandparent">Grandparent</option>
+            <option value="grandchild">Grandchild</option>
+            <option value="aunt">Aunt</option>
+            <option value="uncle">Uncle</option>
+            <option value="cousin">Cousin</option>
+          </select>
+        </div>
+        
+        <div class="form-group" id="relatedPersonGroup" style="display: none;">
+          <label for="relatedPerson">Related To</label>
+          <select id="relatedPerson" name="related_person_id">
+            <option value="">-- Select a person --</option>
+          </select>
+        </div>
+        
+        <div class="form-actions">
+          <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+          <button type="submit" class="btn-primary">Save Member</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Member Details Modal -->
+  <div id="detailsModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="detailsTitle">Member Details</h2>
+        <button class="modal-close" id="closeDetailsBtn">&times;</button>
+      </div>
+      
+      <div class="details-content">
+        <div class="detail-item">
+          <label>Name:</label>
+          <p id="detailName"></p>
+        </div>
+        
+        <div class="detail-item">
+          <label>Phone:</label>
+          <p id="detailPhone"></p>
+        </div>
+        
+        <div class="detail-item">
+          <label>Relationships:</label>
+          <ul id="detailRelationships" class="relationships-list"></ul>
+        </div>
+        
+        <div class="detail-actions">
+          <button id="editMemberBtn" class="btn-primary">✏️ Edit</button>
+          <button id="deleteMemberBtn" class="btn-danger">🗑️ Delete</button>
+          <button id="closeDetailsBtn2" class="btn-secondary">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
